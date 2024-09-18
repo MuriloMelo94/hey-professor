@@ -15,7 +15,7 @@ class EndWithQuestionMarkRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if($value[strlen($value) - 1] !== '?') {
-            $fail('Are you sure this is a question? No question mark ? detected');
+            $fail('Are you sure this is a question? No question mark ? detected.');
         }
     }
 }
