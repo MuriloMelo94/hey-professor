@@ -1,25 +1,69 @@
+#!/bin/sh
+
+# Introdução criativa no pre-commit com barra giratoria e emoji
+echo ""
+echo "🚀 Preparando etapa de pre-commit ..."
+
+# Barra giratória
+spin='-\|/'
+i=0
+counter=0
+while [ $counter -lt 20 ]; do
+  printf "\r${spin:$i:1} Executando verificações pré-commit..."
+  i=$(( (i+1) % 4 ))
+  counter=$(( counter + 1 ))
+  sleep 0.1
+done
+
+# Finaliza a barra giratória
+printf "\r✔️  Verificações iniciadas com sucesso! 🛠️\n\n"
+
+# Rodar comandos de otimização e limpar cache
+echo -e "\033[47;30m INFO \033[0m Rodando otimização e limpeza de cache... ⚙️"
+php artisan optimize
+if [ $? -ne 0 ]; then
+    echo -e "\033[47;30m ERROR \033[0m Opa! Algo deu errado com a otimização. Verifique e tente novamente! ❌"
+    exit 1
+fi
+
+php artisan config:clear
+if [ $? -ne 0 ]; then
+    echo -e "\033[47;30m ERROR \033[0m Opa! Algo deu errado ao limpar a configuração. Verifique e tente novamente! ❌"
+    exit 1
+fi
+
 # Rodar o phpstan
+echo ""
+echo -e "\033[47;30m INFO \033[0m Inicializando análise estática... 🛸"
+echo ""
 ./vendor/bin/phpstan
 if [ $? -ne 0 ]; then
-    echo "Opa! Deu ruim aqui com PHPSTAN. Arrume antes de continuar... 😉";
+    echo -e "\033[47;30m ERROR \033[0m Opa! Deu ruim aqui com PHPSTAN. Arrume antes de continuar... 😉"
+    echo ""
     exit 1;
 fi;
 
-#Roda os testes
+# Roda os testes
+echo -e "\033[47;30m INFO \033[0m Inicializando testes paralelos... 📚"
+echo ""
 php artisan test --parallel
-
 if [ $? -ne 0 ]; then
-    echo "Opa! Deu ruim aqui com os testes. Arrume antes de continuar... 😉";
+    echo -e "\033[47;30m ERROR \033[0m Opa! Deu ruim aqui com os TESTES. Arrume antes de continuar... 😉"
+    echo ""
     exit 1;
 fi;
 
 # Formatar cada arquivo alterado usando o Laravel Pint
+echo -e "\033[47;30m INFO \033[0m Formatando arquivos modificados com Laravel Pint... 🖋️"
+echo ""
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$") || true
-
 for FILE in $STAGED_FILES
 do
     ./vendor/bin/pint "${FILE}" > /dev/null >&1;
     git add "${FILE}";
 done;
+
+echo "✅ Pre-commit finalizado com sucesso! Tudo pronto para seguir. 🔒"
+echo ""
 
 exit 0;
