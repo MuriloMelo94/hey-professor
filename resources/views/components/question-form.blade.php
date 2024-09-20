@@ -1,6 +1,4 @@
-<div class="py-12">
-    <div class="max-w-7xl w-full mx-auto sm:px-6 lg:px-8">
-        <form action="{{ route('questions.store') }}" method="post">
+<form action="{{ route('questions.store') }}" method="post">
             @csrf
 
             <div>
@@ -24,5 +22,3 @@
                 </x-btn.secondary>
             </div>
         </form>
-    </div>
-</div>
