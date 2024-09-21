@@ -21,3 +21,19 @@ it('should be able to give a like in a question', function () {
         'unlike'      => 0,
     ]);
 });
+
+it('should not be able to vote more than 1 time', function () {
+    $user = User::factory()->create();
+
+    $question = Question::factory()->create();
+
+    actingAs($user);
+
+    post(route('questions.like', $question));
+    post(route('questions.like', $question));
+    post(route('questions.like', $question));
+
+    expect($user->votes()->where('question_id', '=', $question->id)->get())
+        ->toHaveCount(1);
+
+});
