@@ -3,7 +3,8 @@
 use App\Http\Controllers\{DashboardController,
     ProfileController,
     Question\QuestionController,
-    Question\QuestionLikeController};
+    Question\QuestionLikeController,
+    Question\QuestionUnlikeController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('questions/like/{question}', QuestionLikeController::class)->name('questions.like');
+Route::post('questions/unlike/{question}', QuestionUnlikeController::class)->name('questions.unlike');
 Route::post('questions/store', [QuestionController::class, 'store'])->name('questions.store');
 
 require __DIR__ . '/auth.php';

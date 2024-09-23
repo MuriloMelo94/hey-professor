@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-container>
-        <x-question-form/>
+        <x-form.question-form/>
 
         <hr class="border-gray-700 border-dashed my-4"/>
 
