@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Question;
 
 use App\Http\Controllers\Controller;
-use App\Models\Question;
 use App\Rules\EndWithQuestionMarkRule;
 use Illuminate\Http\{RedirectResponse, Request};
 
@@ -20,7 +19,7 @@ class QuestionController extends Controller
             ],
         ]);
 
-        Question::query()->create($attributes);
+        user()->questions()->create($attributes);
 
         return to_route('dashboard');
     }

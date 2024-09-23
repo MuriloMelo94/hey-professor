@@ -13,6 +13,7 @@ it('should create a question with more than 255 characters', function () {
     actingAs($user);
     $request = post(route('questions.store'), [
         'question' => str_repeat('a', 256) . '?',
+        'user_id'  => $user->id,
     ]);
 
     //Assert
@@ -30,6 +31,7 @@ it('could not create a question with less than 10 characters', function () {
 
     $request = post(route('questions.store'), [
         'question' => str_repeat('a', 8) . '?',
+        'user_id'  => $user->id,
     ]);
 
     //Assert
@@ -46,6 +48,7 @@ it('should not create questions without a question mark at the end', function ()
 
     $request = post(route('questions.store'), [
         'question' => str_repeat('a', 256),
+        'user_id'  => $user->id,
     ]);
 
     //Assert
