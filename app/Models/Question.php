@@ -21,6 +21,10 @@ class Question extends Model
      */
     protected array $dates = ['created_at', 'updated_at'];
 
+    protected $casts = [
+        'draft' => 'boolean',
+    ];
+
     /**
      * @return HasMany<Vote>
      */
