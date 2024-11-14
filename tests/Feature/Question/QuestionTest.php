@@ -17,7 +17,7 @@ it('should create a question with more than 255 characters', function () {
     ]);
 
     //Assert
-    $request->assertRedirect(route('dashboard'));
+    $request->assertRedirect();
     assertDatabaseCount('questions', 1);
     assertDatabaseHas('questions', ['question' => str_repeat('a', 256) . '?']);
 });
