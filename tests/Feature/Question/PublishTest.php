@@ -53,3 +53,20 @@ it('only the owner could publish a question', function () {
     put(route('questions.publish', $question))
         ->assertRedirect();
 });
+
+it('should make sure only the person who created the question can publish it', function () {
+    $rightUser = User::factory()->create();
+    $wrongUser = User::factory()->create();
+
+    $question = Question::factory()->create(['draft' => true, 'user_id' => $rightUser->id]);
+
+    actingAs($wrongUser);
+
+    put(route('questions.publish', $question))
+        ->assertForbidden();
+
+    actingAs($rightUser);
+
+    put(route('questions.publish', $question))
+        ->assertRedirect();
+});

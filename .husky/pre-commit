@@ -20,7 +20,7 @@ printf "\r✔️  Verificações iniciadas com sucesso! 🛠️\n\n"
 
 # Rodar comandos de otimização e limpar cache
 echo -e "\033[47;30m INFO \033[0m Rodando otimização e limpeza de cache... ⚙️"
-php artisan optimize
+php artisan optimize:clear
 if [ $? -ne 0 ]; then
     echo -e "\033[47;30m ERROR \033[0m Opa! Algo deu errado com a otimização. Verifique e tente novamente! ❌"
     exit 1
