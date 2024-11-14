@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Question;
 use App\Http\Controllers\Controller;
 use App\Rules\EndWithQuestionMarkRule;
 use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
+    public function index(): View
+    {
+
+        return view('question.index', [
+            'questions' => user()->questions,
+        ]);
+    }
     public function store(Request $request): RedirectResponse
     {
         $attributes = $request->validate([
@@ -21,6 +29,6 @@ class QuestionController extends Controller
 
         user()->questions()->create($attributes);
 
-        return to_route('dashboard');
+        return back();
     }
 }
