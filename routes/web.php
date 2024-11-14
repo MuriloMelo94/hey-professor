@@ -25,11 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::post('questions/like/{question}', QuestionLikeController::class)->name('questions.like');
-Route::post('questions/unlike/{question}', QuestionUnlikeController::class)->name('questions.unlike');
-Route::put('/questions/publish/{question}', QuestionPublishController::class)->name('questions.publish');
-Route::post('questions/store', [QuestionController::class, 'store'])->name('questions.store');
+    Route::post('questions/like/{question}', QuestionLikeController::class)->name('questions.like');
+    Route::post('questions/unlike/{question}', QuestionUnlikeController::class)->name('questions.unlike');
+    Route::put('/questions/publish/{question}', QuestionPublishController::class)->name('questions.publish');
+    Route::post('questions/store', [QuestionController::class, 'store'])->name('questions.store');
+});
 
 require __DIR__ . '/auth.php';

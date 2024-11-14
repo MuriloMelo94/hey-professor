@@ -55,3 +55,8 @@ it('should not create questions without a question mark at the end', function ()
     $request->assertSessionHasErrors(['question' => 'Are you sure this is a question? No question mark ? detected.']);
     assertDatabaseCount('questions', 0);
 });
+test('only authenticated users can create a question', function () {
+    post(route('questions.store'), [
+        'question' => str_repeat('a', 256) . '?',
+    ])->assertRedirect(route('login'));
+});
