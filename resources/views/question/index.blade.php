@@ -11,12 +11,22 @@
         <hr class="border-gray-700 border-dashed my-4"/>
 
         <div class="dark:text-gray-400 uppercase font-bold my-5 text-4xl text-center">
-            My Questions
+            Drafts
         </div>
 
         <div class="space-y-4">
-            @foreach($questions as $item)
-                <x-card.question :question="$item" />
+            <x-table :questions="$questions->where('draft', true)" />
+        </div>
+
+        <hr class="border-gray-700 border-dashed my-4"/>
+
+        <div class="dark:text-gray-400 uppercase font-bold my-5 text-4xl text-center">
+            Published
+        </div>
+
+        <div class="space-y-4">
+            @foreach($questions->where('draft', false) as $item)
+                <x-card.published :question="$item" />
             @endforeach
         </div>
     </x-container>
