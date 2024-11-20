@@ -4,24 +4,21 @@ use App\Models\{Question, User};
 
 use function Pest\Laravel\{actingAs, get};
 
-it('has to show all question in dashboard', function () {
+it('has to show all published question in dashboard', function () {
     //Arrange
-
-    $user = User::factory()->create();
-
-    $questions = Question::factory()->count(5)->create();
+    $user                 = User::factory()->create();
+    $questionsUnpublished = Question::factory()->for($user)->create();
+    $questionsPublished   = Question::factory()->for($user)->create();
 
     //Act
-
     actingAs($user);
+
+    $questionsPublished->update(['draft' => false]);
 
     $response = get(route('dashboard'));
 
     //Assert
 
-    /** @var Question $q */
-
-    foreach($questions as $q) {
-        $response->assertSee($q->question);
-    }
+    $response->assertSee($questionsPublished->question);
+    $response->assertDontSee($questionsUnpublished->question);
 });
