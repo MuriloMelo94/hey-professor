@@ -13,7 +13,7 @@
         </div>
 
         <div class="space-y-4">
-            @foreach($questions as $item)
+            @foreach($questions->where('draft', false) as $item)
                 <x-card.question :question="$item" />
             @endforeach
         </div>

@@ -5,7 +5,8 @@ use App\Http\Controllers\{DashboardController,
     Question\QuestionController,
     Question\QuestionLikeController,
     Question\QuestionPublishController,
-    Question\QuestionUnlikeController};
+    Question\QuestionUnlikeController,
+    Question\QuestionUnpublishController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('questions/like/{question}', QuestionLikeController::class)->name('questions.like');
     Route::post('questions/unlike/{question}', QuestionUnlikeController::class)->name('questions.unlike');
     Route::put('/questions/publish/{question}', QuestionPublishController::class)->name('questions.publish');
+    Route::put('/questions/unpublish/{question}', QuestionUnpublishController::class)->name('questions.unpublish');
 });
 
 require __DIR__ . '/auth.php';

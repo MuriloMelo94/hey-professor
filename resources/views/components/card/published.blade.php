@@ -6,4 +6,10 @@
 
     <p>{{ $question->question }}</p>
 
+    <x-form.generic :action="route('questions.unpublish', $question)" method="PUT">
+        <button type="submit">
+            Despublicar
+        </button>
+    </x-form.generic>
+
 </div>

@@ -14,6 +14,11 @@ class QuestionPolicy
         return $user->is($question->user);
     }
 
+    public function unpublish(User $user, Question $question): bool
+    {
+        return $user->is($question->user);
+    }
+
     public function destroy(User $user, Question $question): bool
     {
         return $user->is($question->user);
